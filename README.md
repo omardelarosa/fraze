@@ -10,6 +10,8 @@ npm install -g fraze
 
 ## CLI
 
+### `fraze`
+
 ```
     Usage
       $ fraze <numWords>
@@ -18,6 +20,7 @@ npm install -g fraze
        -m, --maxChars   max number of characters per word
        -n, --number     number of words in phrase
        -p, --phrases    number of total phrases
+       -j, --json       provide a relative path to adjacency list json
 
     Examples
       $ fraze 3
@@ -34,24 +37,54 @@ npm install -g fraze
         nnaynney mmeythrey
         elioathr phalthe
         ttes ioay
+
+      $ fraze 3 -j my-own-phoneme-mapping.json
 ```
 
-## API
+### `fraze-builder`
+
+Build phoneme mappings from vowels and consonants sets.
+
+```
+    Usage
+      $ ./builder.js <inputFilename> <outputFilename>
+
+    Examples
+      $ ./builder.js phonemes.json data.json
+
+      $ ./builder.js -i phonemes.json -o data.json`,
+```
+
+### Schemas
 
 ### `sets`
 
-A set is a JSON-esque object with the following schema:
+A set is a JSON-esque adjacency list with the following schema:
 
 ```json
 {
-    "SETS": [
-        ["ch", "sh", "th", "v", "ph", "l", "ll", "n", "m", "mm", "s", "ss"],
-        ["a", "e", "ia", "u", "ae", "io", "iu", "ey", "ay"]
-    ]
+    "a": ["a", "b", "c"],
+    "b": ["a"],
+    "c": ["b", "b", "a"]
 }
 ```
 
-The `SETS[0]` can be thought of as consonant-y phonemes and `SETS[1]` can be thought of as vowel-y phonemes. The generator avoids consonant-y phonemes following other consonant-y phonemes, while vowel-y phonemes can follow either.
+This is used to generate words, markov-chain style using phonemes.
+
+### `stems`
+
+Stems are vowel and consonant sets provided as JSON:
+
+```json
+{
+    "VOWELS": ["a", "e", "i"],
+    "CONSONANTS": ["k", "t", "s"]
+}
+```
+
+These can be used to generate adjacency lists using the `fraze-builder` cli.
+
+## API
 
 ### `makeWord(maxChars, sets)`
 

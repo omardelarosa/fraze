@@ -1,30 +1,28 @@
 {
-    "SETS": [
-        [
-            "ch",
-            "sh",
-            "th",
-            "v",
-            "lth",
-            "rst",
-            "dt",
-            "dz",
-            "thr",
-            "qu",
-            "ph",
-            "t",
-            "tt",
-            "c",
-            "l",
-            "ll",
-            "z",
-            "n",
-            "nn",
-            "m",
-            "mm",
-            "s",
-            "ss"
-        ],
-        ["a", "e", "ia", "u", "ae", "io", "iu", "ey", "ay"]
-    ]
+    "CONSONANTS": [
+        "ch",
+        "sh",
+        "th",
+        "v",
+        "lth",
+        "rst",
+        "dt",
+        "dz",
+        "thr",
+        "qu",
+        "ph",
+        "t",
+        "tt",
+        "c",
+        "l",
+        "ll",
+        "z",
+        "n",
+        "nn",
+        "m",
+        "mm",
+        "s",
+        "ss"
+    ],
+    "VOWELS": ["a", "e", "ia", "u", "ae", "io", "iu", "ey", "ay"]
 }

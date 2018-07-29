@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const fraze = require('.').default;
+const fraze = require('.');
 
 const cli = meow(
     `
@@ -12,6 +12,7 @@ const cli = meow(
        -m, --maxChars   max number of characters per word
        -n, --number     number of words in phrase 
        -p, --phrases    number of total phrases
+       -j, --json       provide a relative path to adjacency list json
  
     Examples
       $ fraze 3
@@ -43,8 +44,12 @@ const cli = meow(
                 type: 'number',
                 alias: 'm',
             },
+            json: {
+                type: 'string',
+                alias: 'j',
+            },
         },
     },
 );
 
-fraze(cli.input[0], cli.flags);
+fraze.main(cli.input[0], cli.flags);
