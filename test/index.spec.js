@@ -171,5 +171,17 @@ describe('fraze', () => {
         it('should make a valid set from the input', () => {
             expect(() => fraze.validateAdjList(adjList)).to.not.throw(Error);
         });
+
+        it('should throw an error when the phoneme length is too short', () => {
+            expect(() =>
+                fraze.generateAdjacencyListsFromCorpus(
+                    inputPath,
+                    outputPath,
+                    -10,
+                    fakeFS,
+                    corpus,
+                ),
+            ).to.throw(Error);
+        });
     });
 });

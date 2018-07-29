@@ -45,7 +45,7 @@ const cli = meow(
 const input = cli.input[0] || cli.flags.input;
 const output = cli.input[1] || cli.flags.output;
 const corpus = cli.flags.corpus;
-const length = cli.flags.length || 0;
+const length = cli.flags.length || 1;
 
 // When corpus text is provided, use that to generate
 if (corpus) {

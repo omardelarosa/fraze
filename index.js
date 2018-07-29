@@ -89,6 +89,9 @@ class Fraze {
         fs = FS,
         data,
     ) {
+        if (!phonemeLength || phonemeLength < 0) {
+            throw new Error('Invalid phonemeLength ' + phonemeLength);
+        }
         const fileData = data || fs.readFileSync(corpusPath).toString();
         const H = {};
         let i = 0;
