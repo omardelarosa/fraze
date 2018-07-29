@@ -184,4 +184,48 @@ describe('fraze', () => {
             ).to.throw(Error);
         });
     });
+
+    describe('#main', () => {
+        let expectedPhrases;
+        let expectedOutput;
+        let consoleLogSpy;
+        const numChars = 5;
+
+        describe('when options are invalid', () => {
+            beforeEach(() => {
+                consoleLogSpy = sinon.spy(fraze.console, 'log');
+                expectedPhrases = fraze.main(5, {});
+                expectedOutput = expectedPhrases.join('\n');
+            });
+
+            afterEach(() => {
+                consoleLogSpy.restore();
+            });
+
+            it('should output the list of phrases to the console', () => {
+                expect(consoleLogSpy.withArgs(expectedOutput).callCount).to.eq(
+                    1,
+                );
+            });
+        });
+        describe('when options are invalid', () => {
+            let doMakeExpectedPhrases;
+            let invalidOptions = { phrases: -1 };
+            beforeEach(() => {
+                consoleLogSpy = sinon.spy(fraze.console, 'log');
+                doMakeExpectedPhrases = (opts = {}) => fraze.main(5, opts);
+            });
+
+            afterEach(() => {
+                consoleLogSpy.restore();
+            });
+
+            it('should not output the list of phrases to the console', () => {
+                expect(() => doMakeExpectedPhrases(invalidOptions)).to.throw(
+                    Error,
+                );
+                expect(consoleLogSpy.callCount).to.eq(0);
+            });
+        });
+    });
 });

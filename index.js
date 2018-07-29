@@ -12,6 +12,18 @@ const SPACE = ' ';
 const BLACKLIST_RE = /[^a-z]/g;
 
 class Fraze {
+    static validateOptions({ numWords, numPhrases, maxChars }) {
+        if (!numWords || numWords < 0) {
+            throw new Error(`Invalid number of words: ${numWords}`);
+        }
+        if (!numPhrases || numPhrases < 1) {
+            throw new Error(`Invalid number of phrases: ${numPhrases}`);
+        }
+        if (!maxChars || maxChars < 1) {
+            throw new Error(`Invalid number of max characters: ${maxChars}`);
+        }
+    }
+
     static validateAdjList(adjList) {
         _.forEach(adjList, (val, key) => {
             // References a "sink" node without any outgoing edges.
@@ -161,7 +173,7 @@ class Fraze {
 
     static main(numCharsArg, options = {}) {
         const jsonPath = options.json
-            ? parseJsonPath(options.json)
+            ? Fraze.parseJsonPath(options.json)
             : DEFAULT_JSON_DATA_PATH;
         const numWords = numCharsArg || options.number || DEFAULT_NUM_WORDS;
         const numPhrases = options.phrases || DEFAULT_NUM_PHRASES;
@@ -170,6 +182,7 @@ class Fraze {
         if (!sets) {
             throw new Error('No phoneme set data provided!');
         } else {
+            Fraze.validateOptions({ numWords, numPhrases, maxChars });
             Fraze.validateAdjList(sets); // validates adj list
             const phrases = [];
             _.times(numPhrases, () => {
@@ -177,6 +190,7 @@ class Fraze {
                 phrases.push(p);
             });
             Fraze.console.log(phrases.join('\n'));
+            return phrases;
         }
     }
 }
