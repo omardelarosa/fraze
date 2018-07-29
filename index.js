@@ -49,7 +49,7 @@ class Fraze {
         } catch (e) {
             Fraze.console.error('Invalid json at path: ', pathToJson);
             Fraze.console.error(e.message);
-            return [];
+            return {};
         }
     }
 
@@ -61,7 +61,7 @@ class Fraze {
         } catch (e) {
             Fraze.console.error('Invalid json at path: ', pathToJson);
             Fraze.console.error(e.message);
-            return [];
+            return {};
         }
     }
 
@@ -108,7 +108,6 @@ class Fraze {
         const H = {};
         let i = 0;
         const end = fileData.length;
-
         // Too short of a corpus
         if (end <= phonemeLength) {
             Fraze.console.warn('File is too short.');
@@ -178,8 +177,8 @@ class Fraze {
         const numWords = numCharsArg || options.number || DEFAULT_NUM_WORDS;
         const numPhrases = options.phrases || DEFAULT_NUM_PHRASES;
         const maxChars = options.maxChars || DEFAULT_MAX_CHARS;
-        const sets = Fraze.loadAdjacencyData(jsonPath);
-        if (!sets) {
+        const sets = options.sets || Fraze.loadAdjacencyData(jsonPath);
+        if (_.isEmpty(sets)) {
             throw new Error('No phoneme set data provided!');
         } else {
             Fraze.validateOptions({ numWords, numPhrases, maxChars });

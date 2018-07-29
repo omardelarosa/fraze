@@ -1,5 +1,8 @@
 # fraze
 
+[![Coverage Status](https://coveralls.io/repos/github/omardelarosa/fraze/badge.svg?branch=master)](https://coveralls.io/github/omardelarosa/fraze?branch=master)
+![Travis (.org)](https://img.shields.io/travis/omardelarsa/fraze/master.svg)
+
 A cli and library that generates phrases of made up, yet pronounceable words.
 
 ## Install

@@ -6,11 +6,30 @@
     "main": "index.js",
     "scripts": {
         "build:data": "./builder.js phonemes.json data.json",
-        "test": "./node_modules/mocha/bin/mocha test/**/*.spec.js"
+        "test:mocha": "./node_modules/mocha/bin/mocha",
+        "test":
+            "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text npm run test:mocha",
+        "coverage":
+            "./node_modules/nyc/bin/nyc.js report --reporter=text-lcov | coveralls"
+    },
+    "nyc": {
+        "check-coverage": true,
+        "per-file": true,
+        "lines": 95,
+        "statements": 95,
+        "functions": 95,
+        "branches": 75,
+        "include": ["./**/*.js"],
+        "exclude": ["test/", "node_modules/", "coverage/", "coverage-tmp/"],
+        "reporter": ["html", "text"],
+        "cache": true,
+        "all": true,
+        "temp-directory": "./coverage-tmp",
+        "report-dir": "./coverage"
     },
     "bin": {
-        "fraze": "./cli.js",
-        "fraze-builder": "./builder.js"
+        "fraze": "./cli",
+        "fraze-builder": "./builder"
     },
     "author": {
         "name": "Omar Delarosa",
@@ -33,7 +52,9 @@
     ],
     "devDependencies": {
         "chai": "^4.1.2",
+        "coveralls": "^3.0.2",
         "mocha": "^5.2.0",
+        "nyc": "^12.0.2",
         "sinon": "^6.1.4"
     }
 }
